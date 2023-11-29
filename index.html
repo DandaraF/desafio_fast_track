@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
+    <script>
+      function logar(){
+        let email = document.getElementById('email_login').value;
+        let password = document.getElementById('password_login').value;
+
+        fetch("data/login.json").then((response) =>{
+        response.json().then((datas)=>{
+          datas.map(login =>{
+            if (login.email === email && login.password == password){
+              window.location.href = "tasks.html"
+            }else{
+              alert("E-mail e/ou senha inválido(s). Tente novamente.")
+            }
+          });
+        })
+      })
+    }
+
+    function register(){
+      let name = document.getElementById('name_register').value;
+      let email = document.getElementById('email_register').value;
+      let password = document.getElementById('password_register').value;
+
+      let login = { "name": name, "email": email, "password": password};
+
+      console.log(login)
+    }
+
+    </script>
+
+
+</head>
+<body>
+
+    <div class="container">
+        <div class="content">
+            <img src="/assets/img/Login.jpg" alt="Login">
+        
+            <div class="container-forms">
+                <!-- Form login -->
+                <form id="login">
+                    <p>Acesse sua conta:</p>
+                    <div class="form-group">
+                      <input type="email" class="form-control" id="email_login" aria-describedby="emailHelp" placeholder="E-mail">
+                    </div>
+                    <div class="form-group">
+                      <input type="password" class="form-control" id="password_login" placeholder="Senha">
+                    </div>
+                    <button type="submit" class="btn btn-primary" onclick="logar()">Entrar</button>
+                </form>
+    
+                <!-- Form register -->
+                <form id="register">
+                    <p>Novo por aqui? Crie sua conta:</p>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="name_register"  placeholder="Nome">
+                      </div>
+                    <div class="form-group">
+                      <input type="email" class="form-control" id="email_register" aria-describedby="emailHelp" placeholder="E-mail">
+                    </div>
+                    <div class="form-group">
+                      <input type="password" class="form-control" id="password_register" placeholder="Senha">
+                    </div>
+                    <button type="submit" class="btn btn-primary" onclick="register()">Criar conta</button>
+                </form>
+            </div>
+        </div>
+        
+
+       
+    </div>
+    
+
+</body>
+</html>

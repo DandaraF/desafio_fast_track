@@ -1,0 +1,9 @@
+:root{
+    --default-background: rgba(0,0,0,1);
+    --default-btn: rgba(0,0,0,1);
+    --background-base: #1ed760;
+    --background-highlight: #1fdf64;
+    --font-color: #1ed760;
+    --default-green: #1DB954;
+    --light-green: #1ed760;
+ }
