@@ -6,6 +6,8 @@ const hr_termino = document.getElementById("hr_termino");
 const descricao = document.getElementById("descricao");
 let listaTarefas = document.getElementById("listaTarefas");
 
+const KEY_LOCAL_STORAGE = 'listaDeTarefas';
+
 let dbTarefas = [];
 
 let tarefa = {
@@ -17,23 +19,61 @@ let tarefa = {
     "descricao": descricao.value
 }
 
+let tipos_status = {
+    pendente: "Pendente",
+    andamento: "Andamento",
+    realizada: "Realizada",
+    atraso: "Em abraso"
+}
 
 //Funções
+
+function formatarData(data){
+    const dataCriada= new Date(data);
+    return dataCriada.toLocaleDateString('pt-BR', {timeZone: 'UTC'});
+}
+
+function selecionarStatus(tarefa){
+    const hoje = new Date();
+    dataAtual = hoje.toLocaleDateString('pt-BR', {timeZone: 'UTC'})
+    horaMinutoAtual = hoje.getHours() +":" + hoje.getMinutes();
+    
+    // Inicio: 21/11  > atual: 20/11 - vai acontecer
+    if(tarefa.dt_inicio > dataAtual ){
+        tarefa.status = tipos_status.pendente;
+    }
+    // Inicio: 19/11  < atual: 20/11 - já está acontecendo
+    if(tarefa.dt_inicio < dataAtual && tarefa.dt_termino < dataAtual){
+        tarefa.status = tipos_status.andamento;
+    }
+    // Inicio: 19/11  < atual: 20/11 - já está acontecendo
+    if(tarefa.dt_termino  < dataAtual ){
+        tarefa.status = tipos_status.andamento;
+    }
+
+}
 
 function adicionarTarefa() {
     let tamanho =  dbTarefas.length;
 
+    inicio = formatarData(dt_inicio.value);
+    termino = formatarData(dt_termino.value);
+
+
     let tarefa = {
         "nome": input_tarefa.value,
-        "dt_inicio": dt_inicio.value,
+        "dt_inicio": inicio,
         "hr_inicio": hr_inicio.value,
-        "dt_termino": dt_termino.value,
+        "dt_termino": termino,
         "hr_termino": hr_termino.value,
         "descricao": descricao.value,
         "id": tamanho + 1
     }
+    selecionarStatus(tarefa)
+    // tarefa.status = selecionarStatus(tarefa);
+
     dbTarefas.push(tarefa);
-    // salvarTarefasLocalStorage(dbTarefas);
+    salvarTarefasLocalStorage(dbTarefas);
     renderizarListaTarefaHtml();
 }
 function alterarTarefa(id){
@@ -48,7 +88,12 @@ function renderizarListaTarefaHtml() {
     // input_tarefa.value = '';  
 }
 
+
+
+
 function criarTagTr(tarefa){
+
+
     let tr = document.createElement('tr');
     tr.id = tarefa.id;
 
@@ -77,30 +122,8 @@ function criarTagTr(tarefa){
     tr.appendChild(td_btn)
 
     return tr;
-
-    // listaTarefas.innerHTML += `
-    // <tr>
-    //     <td >${tarefa.nome}</td>
-    //     <td>${tarefa.dt_inicio} às ${tarefa.hr_inicio}</td>
-    //     <td>${tarefa.dt_termino} às ${tarefa.hr_termino}</td>
-    //     <td>${tarefa.status}</td>
-    //     <td><button type="button" class="btn btn-warning" onclick=alterarTarefa(${tarefa.id})>Alterar</button></td>
-    // </tr>
-    // `;
 }
 
 function salvarTarefasLocalStorage() {
     localStorage.setItem(KEY_LOCAL_STORAGE, JSON.stringify(dbTarefas));
 }
-
-
-//<tr>
-/* 
-<td >1</td>
-<td>Mark</td>
-<td>Otto</td>
-<td>@mdo</td>
-<td>
-    <button type="button" class="btn btn-warning">Alterar</button>
-</td>
-</tr> */
