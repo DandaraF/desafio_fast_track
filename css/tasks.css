@@ -1,0 +1,72 @@
+@import "global.css";
+
+nav{
+    width: 100%;
+    display: flex;
+    padding: 10px 20px;
+    justify-content: right;
+    background-color: #640a0a;
+    color: white;
+    align-items: center;
+    font-size: 1.3rem;
+    gap:30px;
+}
+
+.btn-sair{
+   width: 100px; 
+   height: 35px;
+   background-color: #605454d9;
+   border: 1px solid  #1c0c0c3a;
+   border-radius: 4px;
+}
+.btn-sair:hover{
+    background-color: #694e4e3a;
+}
+
+.container-form-tasks{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+
+}
+
+.container-form-tasks .form_task{
+    width: 500px;
+}
+
+.container-form-tasks .form_task .form-group{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.container-form-tasks .form_task .form-group .form-dt{
+    width: 240px;   
+}
+
+.container-form-tasks .form_task .form-group .dt-right{
+    margin-right: 20px;
+}
+
+.container-tasks{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
+
+}
+
+.table{
+    width: 80%;
+
+}
+
+.table tr th{
+    background-color: #640a0ad6;
+    color: #fff;
+}
+
+.table tr{
+    cursor: pointer;
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Tarefas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/tasks.css">
+    
+
+</head>
+<body>
+    <nav>
+        Ralf
+        <button type="button" class="btn-sair" >Sair</button>
+    </nav>
+
+    <div class="container-form-tasks">
+        <div class="form_task" id="form_task">
+            <div class="form-group">
+              <label for="">Tarefa:</label>
+              <input type="text" class="form-control" id="input_tarefa" placeholder="Pagar conta de luz" required>
+            </div>
+            <div class="form-group">
+                <div class="form-dt dt-right">
+                    <label for="dt_inicio">Data início:</label>
+                    <input type="date" class="form-control" id="dt_inicio" >
+                </div>
+                <div  class="form-dt">
+                    <label for="hr_inicio">Hora início:</label>
+                    <input type="time" class="form-control" id="hr_inicio" >
+                </div>
+                <div  class="form-dt dt-right" >
+                    <label for="dt_termino">Data término:</label>
+                    <input type="date" class="form-control" id="dt_termino" >
+                </div>
+                <div  class="form-dt">
+                    <label for="hr_termino">Hora término:</label>
+                    <input type="time" class="form-control" id="hr_termino" >
+                </div>
+            </div>
+    
+              <div class="mb-3">
+                <label for="descricao" class="form-label">Descrição</label>
+                <textarea class="form-control" id="descricao" rows="3"></textarea>
+              </div>
+    
+            <button type="submit" class="btn btn-dark" onclick="adicionarTarefa()">Criar tarefa</button>
+            </div>
+    </div>
+     <hr>
+      <!-- Tasks -->
+      <div class="container-tasks">
+        <table class="table table-hover">
+            <thead class="table">
+              <tr>
+                <th scope="col">Tarefa</th>
+                <th scope="col">Início</th>
+                <th scope="col">Término</th>
+                <th scope="col">Status</th>
+                <th scope="col">Alterar</th>
+              </tr>
+            </thead>
+            <tbody id="listaTarefas">
+              <!-- <tr>
+                <td >1</td>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>
+                    <button type="button" class="btn btn-warning">Alterar</button>
+                </td>
+              </tr> -->
+             
+            </tbody>
+          </table>
+        
+      </div>
+      
+  <script src="js/tarefas.js"></script>
+    
+</body>
+</html>
