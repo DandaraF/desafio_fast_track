@@ -10,6 +10,9 @@ const KEY_LOCAL_STORAGE = 'listaDeTarefas';
 
 let dbTarefas = [];
 
+listarTarefasLocalStorage();
+renderizarListaTarefaHtml();
+
 let tarefa = {
     "tarefa": input_tarefa.value,
     "dt_inicio": dt_inicio.value,
@@ -27,6 +30,13 @@ let tipos_status = {
 }
 
 //Funções
+function listarTarefasLocalStorage() {
+    if(localStorage.getItem(KEY_LOCAL_STORAGE)) {
+        dbTarefas = JSON.parse(localStorage.getItem(KEY_LOCAL_STORAGE));
+        console.log("executei")
+    }  
+}
+
 
 function formatarData(data){
     const dataCriada= new Date(data);
@@ -79,20 +89,29 @@ function adicionarTarefa() {
 function alterarTarefa(id){
     console.log(id)
 }
+
+function limparInput(){
+    input_tarefa.value='';
+    dt_inicio.value = '';
+    hr_inicio.value = '';
+    dt_termino.value = '';
+    hr_termino.value = '';
+    descricao.value = '';
+}
+
 function renderizarListaTarefaHtml() {
     listaTarefas.innerHTML = '';
     for(let i=0; i < dbTarefas.length; i++) {
         let tr = criarTagTr(dbTarefas[i]);
         listaTarefas.appendChild(tr);
     } 
-    // input_tarefa.value = '';  
+    
+    limparInput();
+
 }
 
 
-
-
 function criarTagTr(tarefa){
-
 
     let tr = document.createElement('tr');
     tr.id = tarefa.id;
@@ -127,3 +146,5 @@ function criarTagTr(tarefa){
 function salvarTarefasLocalStorage() {
     localStorage.setItem(KEY_LOCAL_STORAGE, JSON.stringify(dbTarefas));
 }
+
+
