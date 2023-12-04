@@ -4,6 +4,6 @@
 
 Desolvedor um sistema para gerenciamento de tarefas utilizando: HTML, CSS, JavaScript e Bootstrap.
 
-### Desafio
+## Desafio
 
-<img src="/assets/img/projeto.gif" alt="Imagem do projeto"/>
+<img src="/assets/img/projeto.gif" alt="Imagem do projeto" width="500"  />
