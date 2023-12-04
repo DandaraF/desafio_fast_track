@@ -6,4 +6,4 @@ Desolvedor um sistema para gerenciamento de tarefas utilizando: HTML, CSS, JavaS
 
 ## Desafio
 
-<img src="/assets/img/projeto.gif" alt="Imagem do projeto" width="500"  />
+<img src="/assets/img/projeto.gif" alt="Imagem do projeto" width="600px"  />
