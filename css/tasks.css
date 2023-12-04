@@ -6,9 +6,8 @@ nav {
     width: 100%;
     display: flex;
     padding: 10px 20px;
-    justify-content: right;
-
-    background-color: var(--color-primary);
+    justify-content: space-between;
+    background-color: var(--background-primary);
     color: white;
     align-items: center;
     font-size: 1.3rem;
@@ -16,7 +15,6 @@ nav {
 }
 
 #nome-usuario {
-    text-transform: capitalize;
     display: flex;
     justify-content: center;
     align-items: start;
@@ -85,17 +83,11 @@ nav {
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 20px;
-
-}
-
-.table {
-    width: 80%;
-
+    overflow-x: auto;
 }
 
 .table tr th {
-    background-color: var(--color-primary);
+    background-color: var(--background-primary);
     color: #fff;
 }
 
@@ -104,10 +96,10 @@ nav {
     z-index: 1;
 }
 
+
 #btn-criar-tarefa {
     opacity: 1;
     pointer-events: all;
-
 }
 
 .show {
@@ -129,7 +121,7 @@ nav {
 }
 
 .btn-criar-tarefa:hover {
-    background-color: #640a0aa0;
+    background-color: #640a0ab1;
 }
 
 /* Modal */

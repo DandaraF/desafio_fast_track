@@ -47,7 +47,7 @@ function selecionarNomeUsuario() {
     const nome_usuario = document.querySelector("#nome-usuario");
     nome_usuario.innerHTML = `
     <img src="assets/img/user.png" alt="Usuario"/>
-    ${localStorage.getItem(KEY_USER_NAME)}`
+    Bem vindo(a) ${localStorage.getItem(KEY_USER_NAME)}`
 }
 
 function pegarUsuarioIdLocalStorage() {
