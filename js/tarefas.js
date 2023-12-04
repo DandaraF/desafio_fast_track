@@ -7,8 +7,11 @@ const descricao = document.getElementById("descricao");
 let listaTarefas = document.getElementById("listaTarefas");
 
 const KEY_LOCAL_STORAGE = 'listaDeTarefas';
+const KEY_USER_ID = 'idUser';
 
 let dbTarefas = [];
+let user_id = -1;
+
 
 listarTarefasLocalStorage();
 renderizarListaTarefaHtml();
@@ -19,7 +22,8 @@ let tarefa = {
     "hr_inicio": hr_inicio.value,
     "dt_termino": dt_termino.value,
     "hr_termino": hr_termino.value,
-    "descricao": descricao.value
+    "descricao": descricao.value,
+    "id_usuario": pegarUsuarioIdLocalStorage()
 }
 
 let tipos_status = {
@@ -32,10 +36,21 @@ let tipos_status = {
 //Funções
 function listarTarefasLocalStorage() {
     if(localStorage.getItem(KEY_LOCAL_STORAGE)) {
-        dbTarefas = JSON.parse(localStorage.getItem(KEY_LOCAL_STORAGE));
+        let lista_tarefas = JSON.parse(localStorage.getItem(KEY_LOCAL_STORAGE));
+
+        for(i=0; i < lista_tarefas.length; i++){
+            if(lista_tarefas[i].id_usuario == user_id){
+                dbTarefas.push(lista_tarefas[i])
+            }
+
+        }
     }  
 }
 
+function pegarUsuarioIdLocalStorage(){
+    user_id = JSON.parse(localStorage.getItem(KEY_USER_ID));
+
+}
 
 function formatarData(data){
     const dataCriada= new Date(data);
@@ -72,20 +87,20 @@ function selecionarDadosForm(){
         "dt_termino": termino,
         "hr_termino": hr_termino.value,
         "descricao": descricao.value,
-        "id_usuario":0
+        "id_usuario":user_id
     }
 
     return tarefa
 }
 
 function cadastrarTarefa() {
-    tarefa = selecionarDadosForm()
+    tarefa = selecionarDadosForm();
 
     let tamanho =  dbTarefas.length;
 
     tarefa.id = tamanho + 1,
 
-    selecionarStatus(tarefa)
+    selecionarStatus(tarefa);
     dbTarefas.push(tarefa);
     salvarTarefasLocalStorage(dbTarefas);
     renderizarListaTarefaHtml();
@@ -121,7 +136,7 @@ function modal(){
 
 function pegarTarefaPeloId(id){
     for(i=0; i<dbTarefas.length; i++){
-        if(dbTarefas[i].id == id){
+        if(dbTarefas[i].id == id && dbTarefas[i].id_usuario == user_id){
             return dbTarefas[i];
         }
     }
@@ -141,11 +156,8 @@ function abrirModalInfo(id){
 }
 
 function criarTagTr(tarefa){
-
     let tr = document.createElement('tr');
     tr.id = tarefa.id;
-
-    console.log("criei a tag tr")
 
     let td_nome = document.createElement('td');
     let td_inicio = document.createElement('td');
@@ -187,13 +199,12 @@ function formatarDataFormatoInputDate(data){
 }
 
 function editarTarefa(id){
-    console.log(id)
     let btnCriarTarefa = document.querySelector("#btn-criar-tarefa");
     let containerButtonsAlterar = document.querySelector("#buttons-alterar");
     let id_tarefa = document.querySelector("#id_tarefa");
 
-    btnCriarTarefa.classList.toggle('hide-criar-tarefa');
-    containerButtonsAlterar.classList.toggle('hide-buttons')
+    btnCriarTarefa.setAttribute('class', 'hide-criar-tarefa');
+    containerButtonsAlterar.setAttribute('class', 'hide-buttons')
 
     let tarefa = pegarTarefaPeloId(id)
 
@@ -208,18 +219,86 @@ function editarTarefa(id){
 }
 
 function salvarAlteracaoTarefa(){
-    tarefa = selecionarDadosForm()
-    tarefa.id = document.querySelector("#id_tarefa").value;
-    selecionarStatus(tarefa)
+    let confirmacao = window.confirm('Tem certeza que deseja alterar a tarefa? ');
 
-    for(i=0; i < dbTarefas.length; i++){
-        if (dbTarefas[i].id == tarefa.id){
-            dbTarefas[i] = tarefa;
+    if(confirmacao){
+        tarefa = selecionarDadosForm();
+        tarefa.id = document.querySelector("#id_tarefa").value;
+        selecionarStatus(tarefa)
+    
+        for(i=0; i < dbTarefas.length; i++){
+            if (dbTarefas[i].id == tarefa.id ){
+                dbTarefas[i] = tarefa;
+            }
         }
+    
+        salvarTarefasLocalStorage(dbTarefas);
+        listarTarefasLocalStorage();
+        renderizarListaTarefaHtml();
+
+        sairModoEdicao();
+        alert("Tarefa alterada com sucesso!");
     }
 
-    salvarTarefasLocalStorage(dbTarefas);
-    listarTarefasLocalStorage();
-    renderizarListaTarefaHtml();
+
+}
+
+function excluirTarefa(){
+    let confirmacao = window.confirm('Tem certeza que deseja excluir a tarefa?');
+
+    if(confirmacao){
+        let id_tarefa = document.querySelector("#id_tarefa").value;
+        console.log("id=", id_tarefa)
+        console.log("tipo" + typeof(dbTarefas))
+        for(i=0; i < dbTarefas.length; i++){
+            if (dbTarefas[i].id == id_tarefa){
+                let index = dbTarefas.indexOf(dbTarefas[i])
+                dbTarefas.splice(index, 1)
+            }
+        }
+    
+        salvarTarefasLocalStorage(dbTarefas);
+        listarTarefasLocalStorage();
+        renderizarListaTarefaHtml();
+
+        sairModoEdicao()
+        alert("Tarefa excluida com sucesso!");
+    }
+
+}
+
+function sairModoEdicao(){
+    let btnCriarTarefa = document.querySelector("#btn-criar-tarefa");
+    let containerButtonsAlterar = document.querySelector("#buttons-alterar");
+
+    btnCriarTarefa.setAttribute('class', 'btn-criar-tarefa');
+    containerButtonsAlterar.setAttribute('class', 'container-buttons-alterar hide-buttons');
+
+    limparInput();
+}
+
+
+function mudarStatusTarefa(){
+    let confirmacao = window.confirm('Tem certeza que deseja alterar o status da tarefa? ');
+
+    if(confirmacao){
+        tarefa = selecionarDadosForm();
+        tarefa.id = document.querySelector("#id_tarefa").value;
+        
+        tarefa.status = "Realizada";
+    
+        for(i=0; i < dbTarefas.length; i++){
+            if (dbTarefas[i].id == tarefa.id){
+                dbTarefas[i] = tarefa;
+            }
+        }
+    
+        salvarTarefasLocalStorage(dbTarefas);
+        listarTarefasLocalStorage();
+        renderizarListaTarefaHtml();
+        sairModoEdicao();
+
+        alert("Status alterado com sucesso!");
+    }
 
 }

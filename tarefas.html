@@ -41,33 +41,33 @@
             <div class="form-group">
                 <div class="form-dt dt-right">
                     <label for="dt_inicio">Data início:</label>
-                    <input type="date" class="form-control" id="dt_inicio" >
+                    <input type="date" class="form-control" id="dt_inicio" required >
                 </div>
                 <div  class="form-dt">
                     <label for="hr_inicio">Hora início:</label>
-                    <input type="time" class="form-control" id="hr_inicio" >
+                    <input type="time" class="form-control" id="hr_inicio" required >
                 </div>
                 <div  class="form-dt dt-right" >
                     <label for="dt_termino">Data término:</label>
-                    <input type="date" class="form-control" id="dt_termino" >
+                    <input type="date" class="form-control" id="dt_termino" required>
                 </div>
                 <div  class="form-dt">
                     <label for="hr_termino">Hora término:</label>
-                    <input type="time" class="form-control" id="hr_termino" >
+                    <input type="time" class="form-control" id="hr_termino" required>
                 </div>
             </div>
     
               <div class="mb-3">
                 <label for="descricao" class="form-label">Descrição</label>
-                <textarea class="form-control" id="descricao" rows="3"></textarea>
+                <textarea class="form-control" id="descricao" rows="3" required></textarea>
               </div>
             <div class="container-buttons">
-              <button type="submit" class="btn btn-dark"  id="btn-criar-tarefa"onclick="cadastrarTarefa()">Criar tarefa</button>
+              <button type="submit" class="btn-criar-tarefa"  id="btn-criar-tarefa"onclick="cadastrarTarefa()">Criar tarefa</button>
               <div class="container-buttons-alterar hide-buttons" id="buttons-alterar">
                 <button type="submit" class="btn btn-primary" onclick="salvarAlteracaoTarefa()">Alterar</button>
-                <button type="submit" class="btn btn-danger" onclick="">Excluir</button>
-                <button type="submit" class="btn btn-success" onclick="">Marcar como realizada</button>
-                <button type="submit" class="btn btn-secondary" onclick="">Cancelar</button>
+                <button type="submit" class="btn btn-danger" onclick="excluirTarefa()">Excluir</button>
+                <button type="submit" class="btn btn-success" onclick="mudarStatusTarefa()">Marcar como realizada</button>
+                <button type="submit" class="btn btn-secondary" onclick="sairModoEdicao()">Cancelar</button>
                 
               </div>
               <input type="text" id="id_tarefa">
@@ -88,16 +88,7 @@
               </tr>
             </thead>
             <tbody id="listaTarefas">
-              <!-- <tr>
-                <td >1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>
-                    <button type="button" class="btn btn-warning">Alterar</button>
-                </td>
-              </tr> -->
-             
+            
             </tbody>
           </table>
         

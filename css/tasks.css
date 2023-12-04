@@ -1,11 +1,13 @@
 @import "global.css";
+@import "variables.css";
+
 
 nav{
     width: 100%;
     display: flex;
     padding: 10px 20px;
     justify-content: right;
-    background-color: #640a0a;
+    background-color: var(--color-primary) ;
     color: white;
     align-items: center;
     font-size: 1.3rem;
@@ -65,7 +67,7 @@ nav{
 }
 
 .table tr th{
-    background-color: #640a0ad6;
+    background-color: var(--color-primary) ;
     color: #fff;
 }
 
@@ -80,9 +82,26 @@ nav{
 
 }
 
+.show{
+    opacity: 1;
+    pointer-events: all;
+}
+
 #btn-criar-tarefa.hide-criar-tarefa{
     opacity: 0;
     pointer-events: none;
+}
+
+.btn-criar-tarefa{
+    background-color: var(--color-primary) ;
+    padding: 8px;
+    color: white;
+    border:none;
+    border-radius: 6px;
+}
+
+.btn-criar-tarefa:hover{
+    background-color: #640a0aa0;
 }
 
 /* Modal */
@@ -93,7 +112,7 @@ nav{
 }
 .btn-modal{
     padding: .6rem 1.2rem;
-    background-color: #640a0a;;
+    background-color: var(--color-primary) ;
     color: #fff;
     border:none;
     border-radius:  .25rem;

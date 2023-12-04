@@ -7,38 +7,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/styles.css">
-
-    <script>
-      function logar(){
-        let email = document.getElementById('email_login').value;
-        let password = document.getElementById('password_login').value;
-
-        fetch("data/login.json").then((response) =>{
-        response.json().then((datas)=>{
-          datas.map(login =>{
-            if (login.email === email && login.password == password){
-              window.location.href = "tarefas.html"
-            }else{
-              alert("E-mail e/ou senha inválido(s). Tente novamente.")
-            }
-          });
-        })
-      })
-    }
-
-    function register(){
-      let name = document.getElementById('name_register').value;
-      let email = document.getElementById('email_register').value;
-      let password = document.getElementById('password_register').value;
-
-      let login = { "name": name, "email": email, "password": password};
-
-      console.log(login)
-    }
-
-    </script>
-
-
 </head>
 <body>
 
@@ -48,7 +16,7 @@
         
             <div class="container-forms">
                 <!-- Form login -->
-                <form id="login" >
+                <div id="login" >
                     <p>Acesse sua conta:</p>
                     <div class="form-group">
                       <input type="email" class="form-control" id="email_login" aria-describedby="emailHelp" placeholder="E-mail" required>
@@ -57,7 +25,7 @@
                       <input type="password" class="form-control" id="password_login" placeholder="Senha" required>
                     </div>
                     <button type="submit" class="btn btn-primary" onclick="logar()" >Entrar</button>
-                </form>
+                  </div>
     
                 <!-- Form register -->
                 <form id="register">
@@ -71,15 +39,13 @@
                     <div class="form-group">
                       <input type="password" class="form-control" id="password_register" placeholder="Senha" required>
                     </div>
-                    <button type="submit" class="btn btn-primary" onclick="register()">Criar conta</button>
+                    <button type="submit" class="btn btn-primary" onclick="cadastrarUsuario()">Criar conta</button>
                 </form>
             </div>
         </div>
-        
-
-       
     </div>
-    
+
+  <script src="js/login.js"> </script>       
 
 </body>
 </html>
