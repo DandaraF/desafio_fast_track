@@ -23,36 +23,69 @@ function selecionarDadosForm(){
 
     return usuario
 }
+function verificarSeEmailEstaCadastrado(email){
+    for(i=0; i< dbLogins.length; i++){
+        if(dbLogins[i].email == email){
+            return true;
+        }
+    }
+}
 
 function cadastrarUsuario(){
-
-    let tamanho =  dbLogins.length;
-    
     usuario = selecionarDadosForm();
-    usuario.id_usuario = tamanho + 1;
 
-    dbLogins.push(usuario);
-    salvarUsuarioLocalStorage(usuario);
+    emailCadastrado = verificarSeEmailEstaCadastrado(usuario.email);
+
+    if(usuario.nome == '' || usuario.email == ''  || usuario.senha == ''){
+        alert("Preencha todos os campos!");
+    }else{
+        if(emailCadastrado){
+            alert("E-mail já cadastrado!");
+        }else{
+                
+                usuario.id_usuario = dbLogins.length + 1;
+            
+                dbLogins.push(usuario);
+                salvarUsuarioLocalStorage(usuario);
+    
+                alert("Usuário cadastrado com sucesso!")
+
+                nome_registro.value = '';
+                email_registro.value = '';
+                senha_registro.value = '';
+
+        }
+    }
 }
+
+
 
 function salvarUsuarioLocalStorage() {
     localStorage.setItem(KEY_LOCAL_STORAGE, JSON.stringify(dbLogins));
 }
 
-function logar(){
-    let email = document.getElementById('email_login').value;
-    let senha = document.getElementById('password_login').value;
-    console.log(dbLogins.length)
+function validarUser(){
+    let email_input = document.getElementById('email_login').value;
+    let senha_input = document.getElementById('password_login').value;
+
     for(i=0; i< dbLogins.length; i++){
-        if(dbLogins[i].email == email && dbLogins[i].senha == senha){
-            window.location.href = "tarefas.html";
-            localStorage.setItem('idUser', dbLogins[i].id_usuario)
-        }else{
-            alert("E-mail e/ou senha inválido(s)");
+        if(dbLogins[i].email == email_input && dbLogins[i].senha == senha_input){
+            return dbLogins[i]
         }
     }
 }
 
+function logar(){
+    usuario_info = validarUser();
+    if(usuario_info){
+        localStorage.setItem('idUser', usuario_info.id_usuario)
+        localStorage.setItem('nameUser', usuario_info.nome)
+        window.location.href = "tarefas.html";
+    }else{
+        alert("E-mail e/ou senha inválido!")
+    }
+
+}
 
 function listarUsuariosLocalStorage() {
     if(localStorage.getItem(KEY_LOCAL_STORAGE)) {

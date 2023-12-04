@@ -8,13 +8,15 @@ let listaTarefas = document.getElementById("listaTarefas");
 
 const KEY_LOCAL_STORAGE = 'listaDeTarefas';
 const KEY_USER_ID = 'idUser';
+const KEY_USER_NAME = 'nameUser';
 
 let dbTarefas = [];
 let user_id = -1;
 
-
+pegarUsuarioIdLocalStorage();
 listarTarefasLocalStorage();
 renderizarListaTarefaHtml();
+selecionarNomeUsuario();
 
 let tarefa = {
     "tarefa": input_tarefa.value,
@@ -23,7 +25,7 @@ let tarefa = {
     "dt_termino": dt_termino.value,
     "hr_termino": hr_termino.value,
     "descricao": descricao.value,
-    "id_usuario": pegarUsuarioIdLocalStorage()
+    "id_usuario": user_id
 }
 
 let tipos_status = {
@@ -33,23 +35,22 @@ let tipos_status = {
     atraso: "Em abraso"
 }
 
-//Funções
 function listarTarefasLocalStorage() {
     if(localStorage.getItem(KEY_LOCAL_STORAGE)) {
-        let lista_tarefas = JSON.parse(localStorage.getItem(KEY_LOCAL_STORAGE));
-
-        for(i=0; i < lista_tarefas.length; i++){
-            if(lista_tarefas[i].id_usuario == user_id){
-                dbTarefas.push(lista_tarefas[i])
-            }
-
-        }
+        dbTarefas = JSON.parse(localStorage.getItem(KEY_LOCAL_STORAGE));
+        
     }  
+}
+
+function selecionarNomeUsuario(){
+    const nome_usuario = document.querySelector("#nome-usuario");
+    nome_usuario.innerHTML = `
+    <img src="assets/img/user.png" alt="Usuario"/>
+    ${localStorage.getItem(KEY_USER_NAME)}`    
 }
 
 function pegarUsuarioIdLocalStorage(){
     user_id = JSON.parse(localStorage.getItem(KEY_USER_ID));
-
 }
 
 function formatarData(data){
@@ -64,15 +65,14 @@ function selecionarStatus(tarefa){
     
     // Inicio: 21/11  > atual: 20/11 - vai acontecer
     if(tarefa.dt_inicio > dataAtual ){
-        tarefa.status = tipos_status.pendente;
-    }
-    // Inicio: 19/11  < atual: 20/11 - já está acontecendo
+        return tipos_status.pendente;
+    } 
     if(tarefa.dt_inicio < dataAtual && tarefa.dt_termino < dataAtual){
-        tarefa.status = tipos_status.andamento;
+        return tipos_status.andamento;
     }
     // Inicio: 19/11  < atual: 20/11 - já está acontecendo
     if(tarefa.dt_termino  < dataAtual ){
-        tarefa.status = tipos_status.andamento;
+        return tipos_status.andamento;
     }
 
 }
@@ -87,23 +87,40 @@ function selecionarDadosForm(){
         "dt_termino": termino,
         "hr_termino": hr_termino.value,
         "descricao": descricao.value,
-        "id_usuario":user_id
+        "id_usuario":user_id,
+        "status": ''
     }
 
     return tarefa
 }
 
+function verificarInputVazios(){
+    let inputs = [input_tarefa.value, dt_inicio.value, hr_inicio.value, dt_termino.value, hr_termino.value, descricao.value]
+
+    if(inputs[0]== '' ||inputs[1]== ''||inputs[2]== ''||inputs[3]== ''||inputs[4]== ''||inputs[5]== ''){
+        alert("Preencha todos os campos!")
+    }
+    else{
+        return true;
+    }
+}
+
 function cadastrarTarefa() {
-    tarefa = selecionarDadosForm();
+    input_preenchidos = verificarInputVazios();
 
-    let tamanho =  dbTarefas.length;
+    if(input_preenchidos){
+        tarefa = selecionarDadosForm();
 
-    tarefa.id = tamanho + 1,
+        tarefa.id = dbTarefas.length + 1,
+        tarefa.status = selecionarStatus(tarefa);
+    
+        dbTarefas.push(tarefa);
+        salvarTarefasLocalStorage(dbTarefas);
+        renderizarListaTarefaHtml();
 
-    selecionarStatus(tarefa);
-    dbTarefas.push(tarefa);
-    salvarTarefasLocalStorage(dbTarefas);
-    renderizarListaTarefaHtml();
+        alert("Tarefa cadastrada com sucesso!")
+    }
+
 }
 
 function limparInput(){
@@ -118,12 +135,12 @@ function limparInput(){
 function renderizarListaTarefaHtml() {
     listaTarefas.innerHTML = '';
     for(let i=0; i < dbTarefas.length; i++) {
-        let tr = criarTagTr(dbTarefas[i]);
-        listaTarefas.appendChild(tr);
+        if(dbTarefas[i].id_usuario == user_id){
+            let tr = criarTagTr(dbTarefas[i]);
+            listaTarefas.appendChild(tr);
+        }
     } 
-    
     limparInput();
-
 }
 
 function modal(){
@@ -251,7 +268,7 @@ function excluirTarefa(){
         console.log("id=", id_tarefa)
         console.log("tipo" + typeof(dbTarefas))
         for(i=0; i < dbTarefas.length; i++){
-            if (dbTarefas[i].id == id_tarefa){
+            if (dbTarefas[i].id == id_tarefa && dbTarefas[i].id_usuario == user_id){
                 let index = dbTarefas.indexOf(dbTarefas[i])
                 dbTarefas.splice(index, 1)
             }
@@ -285,7 +302,7 @@ function mudarStatusTarefa(){
         tarefa = selecionarDadosForm();
         tarefa.id = document.querySelector("#id_tarefa").value;
         
-        tarefa.status = "Realizada";
+        tarefa.status = tipos_status.realizada;
     
         for(i=0; i < dbTarefas.length; i++){
             if (dbTarefas[i].id == tarefa.id){

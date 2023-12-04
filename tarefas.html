@@ -11,8 +11,8 @@
 </head>
 <body>
     <nav>
-        Ralf
-        <button type="button" class="btn-sair" >Sair</button>
+        <div id="nome-usuario"></div>
+        <button type="button" class="btn-sair" onclick="window.location.href = 'index.html';" >Sair</a></button>
     </nav>
 
     <!-- Modal -->
@@ -33,33 +33,33 @@
     </div>
 
     <div class="container-form-tasks">
-        <div class="form_task" id="form_task">
+        <form class="form_task needs-validation" id="form_task">
             <div class="form-group">
               <label for="">Tarefa:</label>
-              <input type="text" class="form-control" id="input_tarefa" placeholder="Pagar conta de luz" required>
+              <input type="text" class="form-control" id="input_tarefa" placeholder="Pagar conta de luz">
             </div>
-            <div class="form-group">
+            <div class="form-group " >
                 <div class="form-dt dt-right">
                     <label for="dt_inicio">Data início:</label>
-                    <input type="date" class="form-control" id="dt_inicio" required >
+                    <input type="date" class="form-control" id="dt_inicio" >
                 </div>
                 <div  class="form-dt">
                     <label for="hr_inicio">Hora início:</label>
-                    <input type="time" class="form-control" id="hr_inicio" required >
+                    <input type="time" class="form-control" id="hr_inicio" >
                 </div>
                 <div  class="form-dt dt-right" >
                     <label for="dt_termino">Data término:</label>
-                    <input type="date" class="form-control" id="dt_termino" required>
+                    <input type="date" class="form-control" id="dt_termino">
                 </div>
                 <div  class="form-dt">
                     <label for="hr_termino">Hora término:</label>
-                    <input type="time" class="form-control" id="hr_termino" required>
+                    <input type="time" class="form-control" id="hr_termino">
                 </div>
             </div>
     
               <div class="mb-3">
                 <label for="descricao" class="form-label">Descrição</label>
-                <textarea class="form-control" id="descricao" rows="3" required></textarea>
+                <textarea class="form-control" id="descricao" rows="3"></textarea>
               </div>
             <div class="container-buttons">
               <button type="submit" class="btn-criar-tarefa"  id="btn-criar-tarefa"onclick="cadastrarTarefa()">Criar tarefa</button>
@@ -72,7 +72,7 @@
               </div>
               <input type="text" id="id_tarefa">
             </div>
-            </div>
+        </form>
     </div>
      <hr>
       <!-- Tasks -->
