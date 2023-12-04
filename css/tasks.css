@@ -85,7 +85,9 @@ nav {
     width: 100%;
     overflow-x: auto;
 }
-
+.table{
+    width: 80%;
+}
 .table tr th {
     background-color: var(--background-primary);
     color: #fff;
@@ -94,6 +96,10 @@ nav {
 .table tr {
     cursor: pointer;
     z-index: 1;
+}
+
+.table {
+    text-align: center;
 }
 
 
