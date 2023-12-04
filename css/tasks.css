@@ -235,3 +235,27 @@ nav {
 #status_tarefa {
     display: none;
 }
+
+
+@media screen and (max-width: 500px) {
+
+    #nome-usuario{
+        font-size: 14px;
+    }
+
+    #listaTarefas tr, .table thead tr th{
+        font-size: 12px;
+    }
+
+    .table thead tr th, #listaTarefa tr{
+        width: 50px;
+
+    }
+    .btn-alterar{
+        width: 45px;
+        height: 25px;
+        padding: 0;
+        font-size: 12px;
+    }
+}
+

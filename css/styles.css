@@ -4,6 +4,8 @@
 body{
     background-color: var(--background-primary);
 }
+
+
 .container{
     display: flex;
     padding: 0;
@@ -14,6 +16,7 @@ body{
     color: white;
     border: 1px solid #a2a2a2;
     border-radius: 4px;
+    transition: 0.5s;
 
 }
 .content{
@@ -62,5 +65,24 @@ p{
     opacity: 0.9;
 }
 
+@media screen and (max-width: 768px) {
+    .container{
+        border: 0;
+        display: flex;
+        align-items: center;
+    }
+    .content{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width:100%; 
+    }
 
+    .container-forms{
+        display: flex;
+        flex-direction: wrap;
+        width: 100%;
+    }
+   
+}
 
