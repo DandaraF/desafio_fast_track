@@ -2,29 +2,29 @@
 @import "variables.css";
 
 
-nav{
+nav {
     width: 100%;
     display: flex;
     padding: 10px 20px;
     justify-content: right;
-    
-    background-color: var(--color-primary) ;
+
+    background-color: var(--color-primary);
     color: white;
     align-items: center;
     font-size: 1.3rem;
-    gap:30px;
+    gap: 30px;
 }
 
-#nome-usuario{
+#nome-usuario {
     text-transform: capitalize;
     display: flex;
     justify-content: center;
     align-items: start;
-    gap:8px;
-    
+    gap: 8px;
+
 }
 
-#nome-usuario img{
+#nome-usuario img {
     color: white;
     width: 30px;
     height: 30px;
@@ -35,26 +35,27 @@ nav{
 
 }
 
-.btn-sair{
-   width: 100px; 
-   height: 35px;
-   border:none;
-   background-color: #aeaeae;
-   border-radius: 4px;
+.btn-sair {
+    width: 100px;
+    height: 35px;
+    border: none;
+    background-color: #aeaeae;
+    border-radius: 4px;
 }
-.btn-sair a{
+
+.btn-sair a {
     text-decoration: none;
     color: var(--color-primary);
     font-weight: 700;
 }
 
-.btn-sair:hover{
-    background-color:#aeaeaeb4;
+.btn-sair:hover {
+    background-color: #aeaeaeb4;
 }
 
 /* Formulario */
 
-.container-form-tasks{
+.container-form-tasks {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -62,24 +63,24 @@ nav{
 
 }
 
-.container-form-tasks .form_task{
+.container-form-tasks .form_task {
     width: 500px;
 }
 
-.container-form-tasks .form_task .form-group{
+.container-form-tasks .form_task .form-group {
     display: flex;
     flex-wrap: wrap;
 }
 
-.container-form-tasks .form_task .form-group .form-dt{
-    width: 240px;   
+.container-form-tasks .form_task .form-group .form-dt {
+    width: 240px;
 }
 
-.container-form-tasks .form_task .form-group .dt-right{
+.container-form-tasks .form_task .form-group .dt-right {
     margin-right: 20px;
 }
 
-.container-tasks{
+.container-tasks {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -88,88 +89,90 @@ nav{
 
 }
 
-.table{
+.table {
     width: 80%;
 
 }
 
-.table tr th{
-    background-color: var(--color-primary) ;
+.table tr th {
+    background-color: var(--color-primary);
     color: #fff;
 }
 
-.table tr{
+.table tr {
     cursor: pointer;
     z-index: 1;
 }
 
-#btn-criar-tarefa{
+#btn-criar-tarefa {
     opacity: 1;
     pointer-events: all;
 
 }
 
-.show{
+.show {
     opacity: 1;
     pointer-events: all;
 }
 
-#btn-criar-tarefa.hide-criar-tarefa{
+#btn-criar-tarefa.hide-criar-tarefa {
     opacity: 0;
     pointer-events: none;
 }
 
-.btn-criar-tarefa{
-    background-color: var(--color-primary) ;
+.btn-criar-tarefa {
+    background-color: var(--color-primary);
     padding: 8px;
     color: white;
-    border:none;
+    border: none;
     border-radius: 6px;
 }
 
-.btn-criar-tarefa:hover{
+.btn-criar-tarefa:hover {
     background-color: #640a0aa0;
 }
 
 /* Modal */
 
-.title{
+.title {
     margin-bottom: 1rem;
     font-weight: 700;
 }
-.btn-modal{
+
+.btn-modal {
     padding: .6rem 1.2rem;
-    background-color: var(--color-primary) ;
+    background-color: var(--color-primary);
     color: #fff;
-    border:none;
-    border-radius:  .25rem;
+    border: none;
+    border-radius: .25rem;
     cursor: pointer;
     opacity: 0.8;
     font-size: 1rem;
     transition: 0.4s;
 }
 
-.btn-modal:hover{
+.btn-modal:hover {
     opacity: 1;
 }
 
-#fade, #modal{
+#fade,
+#modal {
     transition: .5s;
     opacity: 1;
     pointer-events: all;
 }
 
-#fade{
+#fade {
     position: fixed;
-    top:0;
+    top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(0, 0, 0, 0.6);
     z-index: 5;
 }
 
-#modal{
+#modal {
     position: fixed;
     left: 50%;
     top: 50%;
@@ -181,7 +184,8 @@ nav{
     border-radius: 0.3rem;
     min-width: 300px;
 }
-.modal-header{
+
+.modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -189,33 +193,37 @@ nav{
     margin-bottom: 1rem;
     padding-bottom: 1rem;
 }
-.modal-body{
+
+.modal-body {
     border-bottom: 1px solid #ccc;
     margin-bottom: 1rem;
     padding-bottom: 1rem;
 }
-.modal-button{
+
+.modal-button {
     display: flex;
     justify-content: right;
-    
+
 }
-#modal.hide, #fade.hide{
+
+#modal.hide,
+#fade.hide {
     opacity: 0;
     pointer-events: none;
 }
 
-#modal.hide{
-    top:0;
+#modal.hide {
+    top: 0;
 }
 
 
 /* Alterar tarefa */
-.container-buttons-alterar.hide-buttons{
+.container-buttons-alterar.hide-buttons {
     opacity: 0;
     pointer-events: none;
 }
 
-.container-buttons-alterar{
+.container-buttons-alterar {
     display: flex;
     justify-content: space-around;
     opacity: 1;
@@ -225,6 +233,7 @@ nav{
 
 }
 
-#id_tarefa, #status_tarefa{
+#id_tarefa,
+#status_tarefa {
     display: none;
 }
