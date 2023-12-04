@@ -33,7 +33,7 @@
     </div>
 
     <div class="container-form-tasks">
-        <form class="form_task needs-validation" id="form_task">
+        <div class="form_task needs-validation" id="form_task">
             <div class="form-group">
               <label for="">Tarefa:</label>
               <input type="text" class="form-control" id="input_tarefa" placeholder="Pagar conta de luz">
@@ -66,13 +66,14 @@
               <div class="container-buttons-alterar hide-buttons" id="buttons-alterar">
                 <button type="submit" class="btn btn-primary" onclick="salvarAlteracaoTarefa()">Alterar</button>
                 <button type="submit" class="btn btn-danger" onclick="excluirTarefa()">Excluir</button>
-                <button type="submit" class="btn btn-success" onclick="mudarStatusTarefa()">Marcar como realizada</button>
+                <button type="submit" class="btn btn-success" id="btn-mudar-status" onclick="mudarStatusTarefa()"></button>
                 <button type="submit" class="btn btn-secondary" onclick="sairModoEdicao()">Cancelar</button>
                 
               </div>
               <input type="text" id="id_tarefa">
+              <input type="text" id="status_tarefa">
             </div>
-        </form>
+          </div>
     </div>
      <hr>
       <!-- Tasks -->

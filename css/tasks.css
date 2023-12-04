@@ -225,6 +225,6 @@ nav{
 
 }
 
-#id_tarefa{
+#id_tarefa, #status_tarefa{
     display: none;
 }

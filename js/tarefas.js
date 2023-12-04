@@ -4,6 +4,7 @@ const hr_inicio = document.getElementById("hr_inicio");
 const dt_termino = document.getElementById("dt_termino");
 const hr_termino = document.getElementById("hr_termino");
 const descricao = document.getElementById("descricao");
+const status_tarefa = document.querySelector("#status_tarefa");
 let listaTarefas = document.getElementById("listaTarefas");
 
 const KEY_LOCAL_STORAGE = 'listaDeTarefas';
@@ -60,22 +61,18 @@ function formatarData(data){
 
 function selecionarStatus(tarefa){
     const hoje = new Date();
-    dataAtual = hoje.toLocaleDateString('pt-BR', {timeZone: 'UTC'})
-    horaMinutoAtual = hoje.getHours() +":" + hoje.getMinutes();
-    
-    // Inicio: 21/11  > atual: 20/11 - vai acontecer
-    if(tarefa.dt_inicio > dataAtual ){
-        return tipos_status.pendente;
-    } 
-    if(tarefa.dt_inicio < dataAtual && tarefa.dt_termino < dataAtual){
-        return tipos_status.andamento;
-    }
-    // Inicio: 19/11  < atual: 20/11 - já está acontecendo
-    if(tarefa.dt_termino  < dataAtual ){
-        return tipos_status.andamento;
-    }
 
+    horaMinutoAtual = hoje.getHours() +":" + hoje.getMinutes();
+
+    let dataAtual = new Date(formatarDataFormatoInputDate(hoje.toLocaleDateString()));
+    let data_inicio = new Date(formatarDataFormatoInputDate(tarefa.dt_inicio));
+    let data_termino = new Date(formatarDataFormatoInputDate(tarefa.dt_termino));
+
+    if(data_termino < dataAtual) return tipos_status.atraso;
+    if(data_inicio > dataAtual) return tipos_status.pendente;
+    if(data_inicio <= dataAtual && data_termino > dataAtual) return tipos_status.andamento;
 }
+
 function selecionarDadosForm(){
     inicio = formatarData(dt_inicio.value);
     termino = formatarData(dt_termino.value);
@@ -218,12 +215,23 @@ function formatarDataFormatoInputDate(data){
 function editarTarefa(id){
     let btnCriarTarefa = document.querySelector("#btn-criar-tarefa");
     let containerButtonsAlterar = document.querySelector("#buttons-alterar");
+    let btnMudarStatus = document.querySelector("#btn-mudar-status");
     let id_tarefa = document.querySelector("#id_tarefa");
 
     btnCriarTarefa.setAttribute('class', 'hide-criar-tarefa');
     containerButtonsAlterar.setAttribute('class', 'hide-buttons')
 
     let tarefa = pegarTarefaPeloId(id)
+
+
+    if(tarefa.status == tipos_status.realizada){
+        btnMudarStatus.innerHTML = `Marcar como não realizada`
+        status_tarefa.value = selecionarStatus(tarefa);
+        
+    }else{
+        btnMudarStatus.innerHTML = `Marcar como realizada`
+        status_tarefa.value = tipos_status.realizada;
+    }
 
     input_tarefa.value = tarefa.nome;
     dt_inicio.value = formatarDataFormatoInputDate(tarefa.dt_inicio);
@@ -232,7 +240,7 @@ function editarTarefa(id){
     hr_termino.value = tarefa.hr_termino;
     descricao.value = tarefa.descricao;
     id_tarefa.value = tarefa.id;
-    
+
 }
 
 function salvarAlteracaoTarefa(){
@@ -241,7 +249,8 @@ function salvarAlteracaoTarefa(){
     if(confirmacao){
         tarefa = selecionarDadosForm();
         tarefa.id = document.querySelector("#id_tarefa").value;
-        selecionarStatus(tarefa)
+        console.log("tarefa=" +document.querySelector("#status_tarefa").value)
+        tarefa.status = document.querySelector("#status_tarefa").value;
     
         for(i=0; i < dbTarefas.length; i++){
             if (dbTarefas[i].id == tarefa.id ){
@@ -299,10 +308,17 @@ function mudarStatusTarefa(){
     let confirmacao = window.confirm('Tem certeza que deseja alterar o status da tarefa? ');
 
     if(confirmacao){
+        let status =document.querySelector("#status_tarefa").value
+
         tarefa = selecionarDadosForm();
         tarefa.id = document.querySelector("#id_tarefa").value;
+
+        if(status == tipos_status.realizada){
+            tarefa.status = tipos_status.realizada;
+        }else{
+            tarefa.status = selecionarStatus(tarefa)
+        }
         
-        tarefa.status = tipos_status.realizada;
     
         for(i=0; i < dbTarefas.length; i++){
             if (dbTarefas[i].id == tarefa.id){
